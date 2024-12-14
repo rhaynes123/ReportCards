@@ -1,0 +1,77 @@
+@using ReportCardz.Models
+@page "/reportCards"
+<h3>ReportCards</h3>
+<PageTitle>ReportCards</PageTitle>
+@code {
+    private List<Child> Children = [];
+
+    protected override Task OnInitializedAsync()
+    {
+        Children =
+        [
+            new Child
+            {
+                Name = "Richard",
+                Courses = new Dictionary<string, char>()
+                {
+                    { "Math", 'A' },
+                    { "Science", 'A' },
+                    { "Spanish", 'A' }
+
+                }
+            },
+
+            new Child
+            {
+                Name = "Trinity",
+                Courses = new Dictionary<string, char>()
+                {
+                    { "Math", 'A' },
+                    { "Science", 'A' },
+                    { "Chinese", 'A' }
+
+                }
+            }
+
+        ];
+        return base.OnInitializedAsync();
+    }
+
+}
+@if (!Children.Any())
+{
+    <p>
+        <em>.....One Moment Retrieving Report Card Data</em>
+    </p>
+}
+else
+{
+    foreach (Child child in Children)
+    {
+        <h1>@child.Name</h1>
+        <table class="table-striped">
+            <thead>
+            <tr>
+                <th>Grade</th>
+                <th>Course</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var course in child.Courses)
+            {
+                <tr>
+                    <td>
+                        @course.Value
+                    </td>
+                    <td>
+                        @course.Key
+                    </td>
+                </tr>
+            }
+            </tbody>
+
+    </table>
+    }
+}
