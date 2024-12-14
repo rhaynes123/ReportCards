@@ -1,5 +1,7 @@
 @using ReportCardz.Models
+@using ReportCardz.Persistence
 @page "/reportCards"
+@inject IReportCardsRepository repository
 <h3>ReportCards</h3>
 <PageTitle>ReportCards</PageTitle>
 @code {
@@ -7,33 +9,7 @@
 
     protected override Task OnInitializedAsync()
     {
-        Children =
-        [
-            new Child
-            {
-                Name = "Richard",
-                Courses = new Dictionary<string, char>()
-                {
-                    { "Math", 'A' },
-                    { "Science", 'A' },
-                    { "Spanish", 'A' }
-
-                }
-            },
-
-            new Child
-            {
-                Name = "Trinity",
-                Courses = new Dictionary<string, char>()
-                {
-                    { "Math", 'A' },
-                    { "Science", 'A' },
-                    { "Chinese", 'A' }
-
-                }
-            }
-
-        ];
+        Children = repository.GetChildsAsync().ToList();
         return base.OnInitializedAsync();
     }
 
